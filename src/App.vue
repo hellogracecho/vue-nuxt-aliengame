@@ -44,7 +44,8 @@
 
         <Friend />
         <Score />
-        <component :is="character"></component>
+        <component :is="character" class="character-clip"></component>
+        <Zombie class="zombie-clip" />
 
         <text
           x="1000"
@@ -102,15 +103,17 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+import gsap from "gsap";
+
 import GamestateStart from "@/components/GamestateStart.vue";
 import GamestateFinish from '@/components/GamestateFinish.vue';
 import Artist from "@/components/Artist.vue";
 import Baker from "@/components/Baker.vue";
 import Friend from "@/components/Friend.vue";
 import Mechanic from "@/components/Mechanic.vue";
-// import Zombie from '@/components/Zombie.vue';
+import Zombie from '@/components/Zombie.vue';
 import Score from "@/components/Score.vue";
-import { mapState } from "vuex";
 
 export default {
   components: {
@@ -120,6 +123,7 @@ export default {
     Baker,
     Friend,
     Mechanic,
+    Zombie,
     Score,
   },
   data() {
@@ -134,6 +138,7 @@ export default {
       "characterChoices",
       "character",
       "questionIndex",
+      "score"
     ]),
   },
   methods: {
@@ -152,6 +157,13 @@ export default {
       return array;
     },
   },
+  watch: {
+    score(newValue) {
+      gsap.to(".bottom-clip-path, .top-clip-path", {
+        y: -newValue * 6,
+      })
+    }
+  }
 };
 </script>
 

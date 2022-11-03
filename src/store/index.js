@@ -50,6 +50,9 @@ export default createStore({
     pickCharacter(state, character) {
       state.character = character;
     },
+    updateScore(state, amount) {
+      state.score = amount
+    },
     updateUIState(state, uiState) {
       state.uiState = uiState;
     },
